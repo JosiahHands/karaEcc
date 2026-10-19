@@ -136,9 +136,17 @@
         <p>It looks like you have really studied Ecclesiastes, and I am excited to see how you apply its teachings in your life.</p>
         <p class="closing">Just go through life seeking God and enjoying your life!</p>
         <button type="button" class="toggle" aria-expanded="false" aria-controls="summary-video">Show video</button>
-        <video id="summary-video" controls playsinline preload="metadata" poster="media/KaraEcc-poster.jpg" src="media/KaraEcc(10_19_26).mp4" hidden>
-            Your browser can't play this video. <a href="media/KaraEcc(10_19_26).mp4">Download it here.</a>
-        </video>
+        <div id="summary-video" class="video-wrap" hidden>
+            <video controls playsinline preload="metadata" poster="media/KaraEcc-poster.jpg" src="media/KaraEcc-compressed.mp4">
+                Your browser can't play this video. <a href="media/KaraEcc-compressed.mp4">Download it here.</a>
+            </video>
+            <button type="button" class="video-play" aria-label="Play video">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>
+            </button>
+            <button type="button" class="video-pause" aria-label="Pause video" hidden>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg>
+            </button>
+        </div>
         <p class="thanks">Thank you for your hard work studying Ecclesiastes!</p>
         <p class="credit">Page by Josiah Hands for my lovely friend Kara.</p>
     </footer>

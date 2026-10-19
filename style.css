@@ -216,13 +216,71 @@ footer .toggle {
     margin-top: 2rem;
 }
 
-footer video {
+.video-wrap {
+    position: relative;
+    margin-top: 1rem;
+}
+
+.video-wrap video {
     display: block;
     width: 100%;
-    margin-top: 1rem;
     background: #000;
     border-radius: 12px;
     box-shadow: var(--shadow);
+}
+
+/* Round buttons over the video: play while paused, pause while playing */
+.video-play,
+.video-pause {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    color: #fff;
+    background: var(--accent);
+    border: 3px solid rgba(255, 255, 255, 0.85);
+    border-radius: 50%;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+    transition: transform 0.15s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Centered, big tap target */
+.video-play {
+    inset: 0;
+    width: 4.5rem;
+    height: 4.5rem;
+    margin: auto;
+}
+
+.video-play svg {
+    width: 2.1rem;
+    height: 2.1rem;
+}
+
+/* Bottom left, sitting just above the browser's own control bar */
+.video-pause {
+    left: 0.75rem;
+    bottom: 3.5rem;
+    width: 3.25rem;
+    height: 3.25rem;
+}
+
+.video-pause svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.video-play:hover,
+.video-pause:hover {
+    transform: scale(1.06);
+}
+
+.video-play:focus-visible,
+.video-pause:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
 }
 
 footer .thanks {

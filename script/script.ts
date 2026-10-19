@@ -9,6 +9,7 @@ for (const button of toggleButtons) {
     // Button text is written as "Show ..." in the HTML; swap the first word when toggled.
     const showText = button.textContent ?? "";
     const hideText = showText.replace(/^Show/, "Hide");
+    const video = target instanceof HTMLVideoElement ? target : target.querySelector("video");
 
     button.addEventListener("click", () => {
         const showing = target.hidden;
@@ -16,6 +17,32 @@ for (const button of toggleButtons) {
         button.setAttribute("aria-expanded", String(showing));
         button.textContent = showing ? hideText : showText;
 
-        if (!showing && target instanceof HTMLMediaElement) target.pause();
+        if (!showing) video?.pause();
     });
+}
+
+// Big play button over each video while it's paused; pause button at the bottom while it plays.
+const videoWraps = document.querySelectorAll<HTMLElement>(".video-wrap");
+
+for (const wrap of videoWraps) {
+    const video = wrap.querySelector("video");
+    const playButton = wrap.querySelector<HTMLButtonElement>(".video-play");
+    const pauseButton = wrap.querySelector<HTMLButtonElement>(".video-pause");
+    if (!video || !playButton || !pauseButton) continue;
+
+    const syncButtons = () => {
+        playButton.hidden = !video.paused;
+        pauseButton.hidden = video.paused;
+    };
+
+    video.addEventListener("play", syncButtons);
+    video.addEventListener("pause", syncButtons);
+    video.addEventListener("ended", syncButtons);
+    playButton.addEventListener("click", () => {
+        video.play().catch(syncButtons);
+    });
+    pauseButton.addEventListener("click", () => {
+        video.pause();
+    });
+    syncButtons();
 }
