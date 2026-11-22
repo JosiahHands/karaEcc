@@ -52,9 +52,7 @@ body {
     line-height: 1;
     color: var(--rose);
     text-shadow: 0 6px 24px rgba(224, 68, 106, 0.35);
-    animation:
-        heart-pop 1s cubic-bezier(0.2, 1.6, 0.4, 1) both,
-        heart-beat 1.6s ease-in-out 1.4s infinite;
+    animation: fade-in 1s ease-out both;
 }
 
 h1 {
@@ -64,13 +62,13 @@ h1 {
     font-style: italic;
     line-height: 1.15;
     color: var(--rose);
-    animation: rise-in 1.2s ease-out 0.9s both;
+    animation: fade-in 1s ease-out 0.6s both;
 }
 
 .verse {
     margin: 2rem 0 0;
     padding: 0;
-    animation: rise-in 1.2s ease-out 1.8s both;
+    animation: fade-in 1s ease-out 1.2s both;
 }
 
 .verse p {
@@ -87,21 +85,6 @@ h1 {
     color: var(--muted);
 }
 
-.since {
-    position: relative;
-    z-index: 1;
-    padding: 1.5rem 1rem 2rem;
-    text-align: center;
-    font-size: 0.95rem;
-    letter-spacing: 0.06em;
-    color: var(--muted);
-    animation: rise-in 1.2s ease-out 2.6s both;
-}
-
-.since span {
-    color: var(--rose);
-}
-
 /* Hearts layer, filled by script/love.ts */
 .hearts {
     position: fixed;
@@ -116,57 +99,27 @@ h1 {
     user-select: none;
 }
 
-/* Opening burst: hearts fly out from the centre and fade */
-.hearts .burst {
-    left: 50%;
-    top: 45%;
-    animation: burst var(--dur) cubic-bezier(0.15, 0.8, 0.3, 1) var(--delay) both;
-}
-
-/* Afterwards: hearts drift up from the bottom */
-.hearts .float {
+/* Hearts drift straight up from the bottom */
+.hearts span {
     bottom: -3rem;
+    opacity: 0.6;
     animation: float var(--dur) linear both;
 }
 
-@keyframes heart-pop {
-    0% { transform: scale(0); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes heart-beat {
-    0%, 100% { transform: scale(1); }
-    15% { transform: scale(1.12); }
-    30% { transform: scale(1); }
-    45% { transform: scale(1.08); }
-}
-
-@keyframes rise-in {
-    from { transform: translateY(14px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes burst {
-    0% { transform: translate(-50%, -50%) scale(0.2) rotate(0deg); opacity: 0; }
-    15% { opacity: 1; }
-    100% {
-        transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1) rotate(var(--rot));
-        opacity: 0;
-    }
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes float {
-    0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
-    10% { opacity: var(--alpha); }
-    85% { opacity: var(--alpha); }
-    100% { transform: translate(var(--sway), -115vh) rotate(var(--rot)); opacity: 0; }
+    from { transform: translateY(0); }
+    to { transform: translateY(-115vh); }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .big-heart,
     h1,
-    .verse,
-    .since {
+    .verse {
         animation: none;
     }
 }
