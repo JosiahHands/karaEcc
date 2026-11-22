@@ -1,0 +1,172 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-top: #fff5f7;
+    --bg-bottom: #fde2e8;
+    --text: #4a2730;
+    --muted: #8a5a66;
+    --rose: #e0446a;
+    --rose-soft: #f6a6b8;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    background: linear-gradient(var(--bg-top), var(--bg-bottom));
+    color: var(--text);
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Letter */
+.letter {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+.big-heart {
+    font-size: clamp(4.5rem, 22vw, 7rem);
+    line-height: 1;
+    color: var(--rose);
+    text-shadow: 0 6px 24px rgba(224, 68, 106, 0.35);
+    animation:
+        heart-pop 1s cubic-bezier(0.2, 1.6, 0.4, 1) both,
+        heart-beat 1.6s ease-in-out 1.4s infinite;
+}
+
+h1 {
+    margin: 1.25rem 0 0;
+    font-size: clamp(2.2rem, 10vw, 3.6rem);
+    font-weight: normal;
+    font-style: italic;
+    line-height: 1.15;
+    color: var(--rose);
+    animation: rise-in 1.2s ease-out 0.9s both;
+}
+
+.verse {
+    margin: 2rem 0 0;
+    padding: 0;
+    animation: rise-in 1.2s ease-out 1.8s both;
+}
+
+.verse p {
+    margin: 0;
+    font-size: clamp(1.1rem, 4.5vw, 1.35rem);
+}
+
+.verse cite {
+    display: block;
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+    font-style: normal;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+}
+
+.since {
+    position: relative;
+    z-index: 1;
+    padding: 1.5rem 1rem 2rem;
+    text-align: center;
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    animation: rise-in 1.2s ease-out 2.6s both;
+}
+
+.since span {
+    color: var(--rose);
+}
+
+/* Hearts layer, filled by script/love.ts */
+.hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.hearts span {
+    position: absolute;
+    line-height: 1;
+    user-select: none;
+}
+
+/* Opening burst: hearts fly out from the centre and fade */
+.hearts .burst {
+    left: 50%;
+    top: 45%;
+    animation: burst var(--dur) cubic-bezier(0.15, 0.8, 0.3, 1) var(--delay) both;
+}
+
+/* Afterwards: hearts drift up from the bottom */
+.hearts .float {
+    bottom: -3rem;
+    animation: float var(--dur) linear both;
+}
+
+@keyframes heart-pop {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes heart-beat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.12); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.08); }
+}
+
+@keyframes rise-in {
+    from { transform: translateY(14px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes burst {
+    0% { transform: translate(-50%, -50%) scale(0.2) rotate(0deg); opacity: 0; }
+    15% { opacity: 1; }
+    100% {
+        transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1) rotate(var(--rot));
+        opacity: 0;
+    }
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+    10% { opacity: var(--alpha); }
+    85% { opacity: var(--alpha); }
+    100% { transform: translate(var(--sway), -115vh) rotate(var(--rot)); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .big-heart,
+    h1,
+    .verse,
+    .since {
+        animation: none;
+    }
+}

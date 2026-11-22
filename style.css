@@ -308,6 +308,18 @@ footer .credit {
     color: var(--muted);
 }
 
+/* A link disguised as ordinary text */
+footer .credit .secret {
+    color: inherit;
+    text-decoration: none;
+    cursor: text;
+    -webkit-tap-highlight-color: transparent;
+}
+
+footer .credit .secret:focus-visible {
+    outline: none;
+}
+
 /* Wider screens: once a picture is shown, notes on the left and text on the right */
 @media (min-width: 800px) {
     main > section {
